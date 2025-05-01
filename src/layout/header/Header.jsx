@@ -1,13 +1,34 @@
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router";
-import { Link } from "react-router";
+import { useNavigate, Link } from "react-router";
 
 import { logout } from "/src/redux/slices/auth";
+import { fetchProfile } from "/src/redux/slices/profile";
 
 const Header = () => {
+  const [loading, setLoading] = useState(false);
+  const [firstName, setFirstName] = useState();
+
   const { isLoggedIn } = useSelector((state) => state.auth);
   let navigate = useNavigate();
   const dispatch = useDispatch();
+
+  const token = JSON.parse(localStorage.getItem("token"));
+
+  useEffect(() => {
+    if (token) {
+      setLoading(true);
+      dispatch(fetchProfile({ token }))
+        .unwrap()
+        .then((data) => {
+          setFirstName(`${data.firstName}`);
+          setLoading(false);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  }, [dispatch, token]);
 
   const handleSignOut = () => {
     dispatch(logout())
@@ -34,7 +55,7 @@ const Header = () => {
         <div>
           <Link to="/profile" className="main-nav-item">
             <i className="fa fa-user-circle"></i>
-            Tony
+            {loading ? "loading..." : firstName}
           </Link>
           <Link to="/" className="main-nav-item" onClick={handleSignOut}>
             <i className="fa fa-sign-out"></i>

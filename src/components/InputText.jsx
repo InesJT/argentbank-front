@@ -1,6 +1,13 @@
 import PropTypes from 'prop-types';
 
-const InputText = ({ register, name, labelTitle, type, containerStyle, placeholder }) => {
+const InputText = ({
+  register,
+  name,
+  labelTitle,
+  type,
+  containerStyle,
+  placeholder,
+}) => {
   return (
     <div className={`${containerStyle}`}>
       <label htmlFor={`${name}`}>{labelTitle}</label>

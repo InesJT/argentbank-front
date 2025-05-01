@@ -1,11 +1,36 @@
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+
+import { fetchProfile } from "/src/redux/slices/profile";
+
 const Profile = () => {
+  const dispatch = useDispatch();
+  const [loading, setLoading] = useState(true);
+  const [name, setName] = useState();
+
+  const { token } = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    if (token) {
+      dispatch(fetchProfile({ token }))
+        .unwrap()
+        .then((data) => {
+          setName(`${data.firstName} ${data.lastName}`);
+          setLoading(false);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  }, [dispatch, token]);
+
   return (
     <main className="main bg-dark">
       <div className="header">
         <h1>
           Welcome back
           <br />
-          Tony Jarvis!
+          {loading ? "loading..." : name}
         </h1>
         <button className="edit-button">Edit Name</button>
       </div>
