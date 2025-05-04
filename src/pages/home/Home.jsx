@@ -1,4 +1,13 @@
+import { useSelector } from 'react-redux';
+import { Navigate } from 'react-router';
+
 const Home = () => {
+  const { isLoggedIn } = useSelector((state) => state.auth);
+
+  if (isLoggedIn) {
+    return <Navigate to="/profile" />;
+  }
+
   return (
     <main>
       <div className="hero">

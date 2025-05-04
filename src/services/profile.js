@@ -18,8 +18,27 @@ const fetchProfile = (token) => {
     });
 };
 
+const updateProfile = (token, data) => {
+  return axios
+    .put(
+      API_URL + "profile",
+      {
+        ...data,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    )
+    .then((response) => {
+      return response.data.body;
+    });
+};
+
 const ProfileService = {
   fetchProfile,
+  updateProfile,
 };
 
 export default ProfileService;

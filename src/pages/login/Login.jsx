@@ -14,7 +14,7 @@ const schema = z.object({
 });
 
 const Login = () => {
-  let navigate = useNavigate();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const [loading, setLoading] = useState(false);

@@ -15,6 +15,19 @@ export const fetchProfile = createAsyncThunk(
   }
 );
 
+export const updateProfile = createAsyncThunk(
+  "profile/updateProfile",
+  async ({ token, data }, thunkAPI) => {
+    try {
+      const updatedData = await ProfileService.updateProfile(token, data);
+      return updatedData;
+    } catch (error) {
+      console.log(error);
+      return thunkAPI.rejectWithValue(error.response.data.message);
+    }
+  }
+);
+
 const initialState = {
   profile: null,
 };
@@ -31,6 +44,15 @@ const profileSlice = createSlice({
         state.profile = action.payload;
       })
       .addCase(fetchProfile.rejected, (state) => {
+        state.profile = null;
+      })
+      .addCase(updateProfile.pending, (state) => {
+        state.profile = null;
+      })
+      .addCase(updateProfile.fulfilled, (state, action) => {
+        state.profile = action.payload;
+      })
+      .addCase(updateProfile.rejected, (state) => {
         state.profile = null;
       });
   },
