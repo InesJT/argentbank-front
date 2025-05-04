@@ -9,9 +9,7 @@ const login = (email, password) => {
       password,
     })
     .then((response) => {
-      if (response.data.status === 200) {
-        localStorage.setItem("token", JSON.stringify(response.data.body.token));
-      } else if (response.data.status === 400) {
+      if (response.data.status === 400) {
         throw new Error(response.data.message);
       }
       return response.data.body.token;

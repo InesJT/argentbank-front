@@ -11,6 +11,7 @@ import { ErrorText, InputText } from '/src/components';
 const schema = z.object({
   email: z.string().email(),
   password: z.string().min(6),
+  isRemembered: z.boolean().optional(),
 });
 
 const Login = () => {
@@ -30,17 +31,18 @@ const Login = () => {
     defaultValues: {
       email: '',
       password: '',
+      isRemembered: false,
     },
     resolver: zodResolver(schema),
   });
 
   const onSubmit = async (data) => {
-    const { email, password } = data;
+    const { email, password, isRemembered } = data;
     try {
       setLoading(true);
       setErrorMessage(null);
 
-      dispatch(login({ email, password }))
+      dispatch(login({ email, password, isRemembered }))
         .unwrap()
         .then(() => {
           navigate('/profile');
@@ -75,7 +77,11 @@ const Login = () => {
             labelTitle="Password"
           />
           <div className="input-remember">
-            <input type="checkbox" id="remember-me" />
+            <input
+              type="checkbox"
+              id="remember-me"
+              {...register("isRemembered")}
+            />
             <label htmlFor="remember-me">Remember me</label>
           </div>
           {errors.email && <ErrorText styleClass="error-text">{errors.email.message}</ErrorText>}

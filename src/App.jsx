@@ -7,6 +7,8 @@ import Error404 from "/src/pages/error";
 import Login from "./pages/login";
 import Profile from "./pages/profile";
 
+import { ProtectedRoute } from './components';
+
 const App = () => {
   return (
     <BrowserRouter>
@@ -14,7 +16,14 @@ const App = () => {
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
           <Route path="login" element={<Login />} />
-          <Route path="profile" element={<Profile />} />
+          <Route
+            path="profile"
+            element={
+              <ProtectedRoute>
+                <Profile />
+              </ProtectedRoute>
+            }
+          />
           <Route path="*" element={<Error404 />} />
         </Route>
       </Routes>
