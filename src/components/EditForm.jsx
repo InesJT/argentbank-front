@@ -57,24 +57,27 @@ const EditForm = ({ first, last, handleCancel }) => {
   return (
     <section className="sign-in-content">
       <form onSubmit={handleSubmit(onSubmit)}>
-        <InputText
-          name="firstName"
-          register={register}
-          placeholder="FirstName"
-          containerStyle="input-wrapper"
-          labelTitle="FirstName"
-        />
-        <InputText
-          name="lastName"
-          register={register}
-          placeholder="LastName"
-          containerStyle="input-wrapper"
-          labelTitle="LastName"
-        />
+        <div className="input-container">
+          <InputText
+            name="firstName"
+            register={register}
+            placeholder="FirstName"
+            containerStyle="input-wrapper"
+
+          />
+          <InputText
+            name="lastName"
+            register={register}
+            placeholder="LastName"
+            containerStyle="input-wrapper"
+
+          />
+        </div>
         {errors.firstName && (
           <ErrorText styleClass="error-text">
             {errors.firstName.message}
           </ErrorText>
+
         )}
         {errors.lastName && (
           <ErrorText styleClass="error-text">
@@ -85,12 +88,14 @@ const EditForm = ({ first, last, handleCancel }) => {
           <ErrorText styleClass="error-text">{errorMessage}</ErrorText>
         )}
         {loading && <p>Loading...</p>}
-        <button type="submit" className="sign-in-button">
-          Save
-        </button>
-        <button className="sign-in-button" onClick={handleCancel}>
-          Cancel
-        </button>
+        <div className="button-wrapper">
+          <button type="submit" className="sign-in-button">
+            Save
+          </button>
+          <button className="sign-in-button" onClick={handleCancel}>
+            Cancel
+          </button>
+        </div>
       </form>
     </section>
   );

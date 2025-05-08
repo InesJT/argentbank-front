@@ -165,9 +165,11 @@ body {
   margin-bottom: 0.5rem;
 }
 
+
+
 .sign-in-button {
-  display: block;
-  width: 100%;
+
+  width: 150px;
   padding: 8px;
   font-size: 1.1rem;
   font-weight: bold;
@@ -178,12 +180,26 @@ body {
 }
 
 .sign-in-content {
-  box-sizing: border-box;
-  background-color: white;
-  width: 300px;
+
+
   margin: 0 auto;
   margin-top: 3rem;
   padding: 2rem;
+
+  .input-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .button-wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 20px;
+
+  }
 }
 
 .sign-in-icon {
