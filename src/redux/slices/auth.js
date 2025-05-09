@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 import AuthService from "/src/services/auth";
+import { fetchProfile } from './profile';
 
 export const login = createAsyncThunk(
   "auth/login",
@@ -12,6 +13,7 @@ export const login = createAsyncThunk(
       } else {
         sessionStorage.setItem("token", JSON.stringify(data));
       }
+      await thunkAPI.dispatch(fetchProfile({ token: data }));
       return { token: data };
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data.message);

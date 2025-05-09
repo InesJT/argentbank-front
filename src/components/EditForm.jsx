@@ -63,21 +63,18 @@ const EditForm = ({ first, last, handleCancel }) => {
             register={register}
             placeholder="FirstName"
             containerStyle="input-wrapper"
-
           />
           <InputText
             name="lastName"
             register={register}
             placeholder="LastName"
             containerStyle="input-wrapper"
-
           />
         </div>
         {errors.firstName && (
           <ErrorText styleClass="error-text">
             {errors.firstName.message}
           </ErrorText>
-
         )}
         {errors.lastName && (
           <ErrorText styleClass="error-text">

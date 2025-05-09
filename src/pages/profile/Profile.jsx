@@ -1,30 +1,12 @@
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useState } from "react";
+import { useSelector } from "react-redux";
 
-import { fetchProfile } from "/src/redux/slices/profile";
 import EditForm from "../../components/EditForm";
 
 const Profile = () => {
-  const dispatch = useDispatch();
-  const [isEditing, setIsEditing] = useState(false);
-  const [loading, setLoading] = useState(true);
-
-  const { token } = useSelector((state) => state.auth);
   const { profile } = useSelector((state) => state.profile);
 
-  useEffect(() => {
-    if (token) {
-      dispatch(fetchProfile({ token }))
-        .unwrap()
-        .then(() => {
-          setLoading(false);
-        })
-        .catch((error) => {
-          console.log(error);
-          setLoading(false);
-        });
-    }
-  }, [dispatch, token]);
+  const [isEditing, setIsEditing] = useState(false);
 
   return (
     <main className="main bg-dark">
@@ -32,7 +14,7 @@ const Profile = () => {
         <h1>
           Welcome back
           <br />
-          {loading ? "loading..." : `${profile?.firstName} ${profile?.lastName}`}
+          {`${profile?.firstName} ${profile?.lastName}`}
         </h1>
         {isEditing ? (
           <EditForm
