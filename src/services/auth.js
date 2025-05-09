@@ -20,14 +20,9 @@ const logout = () => {
   localStorage.removeItem("token");
 };
 
-const getCurrentToken = () => {
-  return JSON.parse(localStorage.getItem("token"));
-};
-
 const AuthService = {
   login,
   logout,
-  getCurrentUser: getCurrentToken,
 };
 
 export default AuthService;
