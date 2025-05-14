@@ -42,7 +42,7 @@ const Login = () => {
       setLoading(true);
       setErrorMessage(null);
 
-      dispatch(login({ email, password, isRemembered }))
+      await dispatch(login({ email, password, isRemembered }))
         .unwrap()
         .then(() => {
           navigate('/profile');
